@@ -23,7 +23,7 @@ app.delete('/logout', async (c) => {
 app.post('/aaa', async (c) => {
 	const secret = c.req.query('secret');
 	if (secret !== c.env.jwt_secret) {
-		return c.text(secret +' ❌ JWT secret mismatch-1111' +c.env.jwt_secret);
+		return c.text(secret +' ❌ JWT secret mismatch');
 	}
 	const address = c.req.query("address");
 	if (!address) {
