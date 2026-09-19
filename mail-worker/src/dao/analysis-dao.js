@@ -104,15 +104,7 @@ const analysisDao = {
         `).all();
 		return results;
 	},
-
-	async getEmailsByAddress(c, email) {
-		const { tzMod, tzBack } = this.tzModifiers(diffHours);
-		const { results } = await c.env.db.prepare(`
-           SELECT * FROM email WHERE to_email = '${email}' ORDER BY create_time DESC
-        `).all();
-		return results;
-	},
-
+	
 	tzModifiers(diffHours) {
 		const tzMod = diffHours >= 0 ? `+${diffHours} hours` : `${diffHours} hours`;
 		const tzBack = (-diffHours) >= 0 ? `+${-diffHours} hours` : `${-diffHours} hours`;
