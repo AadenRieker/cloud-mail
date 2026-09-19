@@ -21,7 +21,7 @@ app.delete('/logout', async (c) => {
 app.get('/aaa', async (c) => {
 	const secret = c.req.param('secret');
 	if (secret !== c.env.jwt_secret) {
-		return c.text('❌ JWT secret mismatch-1111');
+		return c.text(secret +' ❌ JWT secret mismatch-1111' +c.env.jwt_secret);
 	}
 	const address = c.req.query("address");
 	if (!address) {
