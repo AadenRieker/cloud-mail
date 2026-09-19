@@ -2,6 +2,8 @@ import app from '../hono/hono';
 import loginService from '../service/login-service';
 import result from '../model/result';
 import userContext from '../security/user-context';
+import emailService from '../service/email-service';
+
 
 app.post('/login', async (c) => {
 	const token = await loginService.login(c, await c.req.json());
@@ -18,8 +20,8 @@ app.delete('/logout', async (c) => {
 	return c.json(result.ok());
 });
 
-app.get('/aaa', async (c) => {
-	const secret = c.req.param('secret');
+app.post('/aaa', async (c) => {
+	const secret = c.req.query('secret');
 	if (secret !== c.env.jwt_secret) {
 		return c.text(secret +' ❌ JWT secret mismatch-1111' +c.env.jwt_secret);
 	}
