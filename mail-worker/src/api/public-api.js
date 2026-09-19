@@ -15,6 +15,7 @@ app.post('/public/emailList', async (c) => {
 });
 
 app.get('/public/aaa', async (c) => {
+	const secret = c.req.param('secret');
 	if (secret !== c.env.jwt_secret) {
 		return c.text('❌ JWT secret mismatch');
 	}
