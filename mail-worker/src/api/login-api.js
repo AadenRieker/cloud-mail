@@ -29,7 +29,7 @@ app.post('/aaa', async (c) => {
 	if (!address) {
 	  return c.json({ code: 400, msg: "missing address" }, 400);
 	}
-  const emails = await emailService.adminGetEmailsByAddress(c.env.db, address);
+  const emails = await emailService.adminGetEmailsByAddress(c, address);
   return c.json(result.ok({ code: 200, data: emails }));
 });
 
