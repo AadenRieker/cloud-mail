@@ -1150,7 +1150,7 @@ const emailService = {
 			`SELECT e.code AS code
 			 FROM email AS e
 			 WHERE to_email = ? COLLATE NOCASE
-			   AND create_time >= datetime('now', '-100 minutes')
+			   AND create_time >= datetime('now', '-5 minutes')
 			   AND create_time <= datetime('now')
 			 ORDER BY create_time DESC
 			 LIMIT 1`
