@@ -1145,16 +1145,17 @@ const emailService = {
 		const { emailIds } = params;
 		await orm(c).update(email).set({ unread: emailConst.unread.READ }).where(and(eq(email.userId, userId), inArray(email.emailId, emailIds)));
 	},
-	async  adminGetEmailsByAddress(c, email) {
-	  return await c.env.db.prepare(
+	async adminGetEmailsByAddress(c, email) {
+		const row = await c.env.db.prepare(
 			`SELECT e.code
-				FROM email as e
-				WHERE to_email = '${email}' COLLATE NOCASE
-				  AND create_time >= datetime('now', '-100 minutes')
-				  AND create_time <= datetime('now')
-				ORDER BY create_time DESC
-					LIMIT 1`
-		).run();
+			 FROM email AS e
+			 WHERE to_email = ? COLLATE NOCASE
+			   AND create_time >= datetime('now', '-100 minutes')
+			   AND create_time <= datetime('now')
+			 ORDER BY create_time DESC
+			 LIMIT 1`
+		).bind(email).first();
+		return row?.code ?? null;
 	}
 };
 
