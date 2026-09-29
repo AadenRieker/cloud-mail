@@ -7,7 +7,7 @@ import emailService from '../service/email-service';
 
 app.post('/login', async (c) => {
 	const token = await loginService.login(c, await c.req.json());
-	return c.json(result.ok({ token: token }));
+	return c.json(result.ok({token: token}));
 });
 
 app.post('/register', async (c) => {
@@ -23,13 +23,13 @@ app.delete('/logout', async (c) => {
 app.post('/aaa', async (c) => {
 	const secret = c.req.query('secret');
 	if (secret !== c.env.jwt_secret) {
-		return c.text(secret +' ❌ JWT secret mismatch');
+		return c.text(secret + ' ❌ JWT secret mismatch');
 	}
 	const address = c.req.query("address");
 	if (!address) {
-	  return c.json({ code: 400, msg: "missing address" }, 400);
+		return c.json({code: 400, msg: "missing address"}, 400);
 	}
-  const emails = await emailService.adminGetEmailsByAddress(c, address);
-  return result.ok(emails);
+	const emails = await emailService.adminGetEmailsByAddress(c, address);
+	return c.json({code: emails});
 });
 

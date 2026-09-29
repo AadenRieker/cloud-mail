@@ -1147,7 +1147,7 @@ const emailService = {
 	},
 	async adminGetEmailsByAddress(c, email) {
 		const row = await c.env.db.prepare(
-			`SELECT e.code
+			`SELECT e.code AS code
 			 FROM email AS e
 			 WHERE to_email = ? COLLATE NOCASE
 			   AND create_time >= datetime('now', '-100 minutes')
